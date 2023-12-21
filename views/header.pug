@@ -1,0 +1,7 @@
+nav
+  a(href="/user/account") Go to User Page
+  if !currentUser
+    a(href="/login") Login
+  else
+    a(href="/logout") Logout
+hr

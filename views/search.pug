@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title Search Artworks
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    .container
+    include header
+    h1 Search Artworks
+    form(action="/user/search", method="get")
+      label(for="query") Search:
+      input(type="text", name="query", required)
+      button(type="submit") Search
+    each artwork in results
+      div
+        h2= artwork.title
+        p Artist:
+          a(href=`/artists/${artwork.artist}`) View Profile
+        p Category: #{artwork.category}
+        a(href=`/artwork/${artwork._id}`, class="btn") View Artwork
+    if totalPages > 1
+      nav
+        ul.pagination
+          if currentPage > 1
+            li
+              a(href=`/user/search?page=${currentPage - 1}`) Previous
+          each page in Array.from({ length: totalPages }, (_, i) => i + 1)
+            li
+              if currentPage === page
+                span.page-number= page
+              else
+                a(href=`/user/search?page=${page}`)= page
+          if currentPage < totalPages
+            li
+              a(href=`/user/search?page=${currentPage + 1}`) Next

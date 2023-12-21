@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title #{artist.username}'s Profile
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    .container
+    include header
+    h1 #{artist.username}'s Profile
+    h2 Artworks
+    each artwork in artworks
+      div
+        h3= artwork.title
+        p Year: #{artwork.year}
+        p Category: #{artwork.category}
+        p Medium: #{artwork.medium}
+        a(href=`/artwork/${artwork._id}`, class="btn") View Artwork
+    h2 Workshops
+    each workshop in workshops
+      div
+        h3= workshop.title
+        p Date: #{workshop.date}
+        p Location: #{workshop.location}
+        form(action=`/workshop/${workshop._id}/enroll`, method="post")
+          button(type="submit") Enroll in Workshop
+        a(href=`/workshop/${workshop._id}`, class="btn") View Workshop
+    if currentUser
+      form(action=`/user/follow/${artist._id}`, method="post")
+        button(type="submit") Follow Artist
+    else
+      p You need to be logged in to follow this artist.

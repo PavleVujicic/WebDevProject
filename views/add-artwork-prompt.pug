@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title Add Artwork
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    .container
+    include header
+    h1 Add Artwork
+    if error
+      p.error= error
+    form(action="/artwork/add", method="post")
+      label(for="title") Title:
+      input(type="text", name="title", required)
+      br
+      label(for="year") Year:
+      input(type="text", name="year", required)
+      br
+      label(for="category") Category:
+      input(type="text", name="category", required)
+      br
+      label(for="medium") Medium:
+      input(type="text", name="medium", required)
+      br
+      label(for="description") Description:
+      textarea(name="description", rows="4", cols="50", required)
+      br
+      label(for="poster") Poster URL:
+      input(type="text", name="poster", required)
+      br
+      button(type="submit") Add Artwork

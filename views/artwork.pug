@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    title #{artwork.title} - Artwork Details
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    include header
+    h1 #{artwork.title}
+    img(src=artwork.poster, alt=artwork.title)
+    p Artist:
+      if artwork.artist
+        a(href=`/artists/${artwork.artist}`) View Profile
+    p Year: #{artwork.year}
+    p Category: #{artwork.category}
+    p Medium: #{artwork.medium}
+    p Description: #{artwork.description}
+    p Reviews:
+      each review in artwork.reviews
+        div
+          p= review.text
+          p Review by:
+            a(href=`/user/${review.user._id}`) #{review.user.username}
+          form(action=`/artwork/${artwork._id}/remove-review`, method="post")
+            button(type="submit") Remove Review
+      p Likes: #{artwork.likes.length}
+    if artwork.artist != currentUser._id
+      form(action=`/artwork/${artwork._id}/review`, method="post")
+        label(for="review") Add Review:
+        textarea(name="review", rows="4", cols="50", required)
+        button(type="submit") Submit Review
+      form(action=`/artwork/${artwork._id}/like`, method="post")
+        button(type="submit") Like
+      if artwork.likes.includes(currentUser._id)
+        form(action=`/artwork/${artwork._id}/remove-like`, method="post")
+          button(type="submit") Remove Like
+    each keyword in [artwork.category, artwork.medium]
+      a(href=`/user/search?query=${keyword}`, class="btn") View More #{keyword} Artworks

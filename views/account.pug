@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    title User Account
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    .container
+    h1 User Account
+    if currentUser
+      p User Account Type: #{currentUser.accountType}
+      p Welcome, #{currentUser.username}!
+      a(href="/logout") Logout
+      br
+      a(href="/user/account") Account Information
+      br
+      a(href="/user/switch-account") Switch Account Type
+      br
+      a(href="/user/following") View Followed Artists
+      br
+      a(href="/user/notifications") View Notifications
+      br
+      a(href="/user/search") Search Artworks
+      br
+      if currentUser.accountType === 'artist'
+        br
+        a(href="/artwork/add") Add Artwork
+        br
+        a(href="/workshop/add") Add Workshop
+      h2 Reviews
+      each review in currentUser.reviews
+        div
+          p= review.text
+          a(href=`/artwork/${review.artwork._id}`, class="btn") View Artwork
+          form(action=`/user/remove-review/${review._id}`, method="post")
+            button(type="submit") Remove Review
+      h2 Liked Artworks
+      each artwork in currentUser.likedArtworks
+        div
+          p= artwork.title
+          a(href=`/artwork/${artwork._id}`, class="btn") View Artwork
+          form(action=`/user/remove-like/${artwork._id}`, method="post")
+            button(type="submit") Remove Like
+    else
+      p You are not logged in. Please login.
+      a(href="/login") Login

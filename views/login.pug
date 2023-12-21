@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Open Gallery - Login
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    .container
+      h1 Open Gallery - Login
+      form(action="/login", method="post")
+        div
+          label(for="username") Username:
+          input(type="text", id="username", name="username", required)
+        div
+          label(for="password") Password:
+          input(type="password", id="password", name="password", required)
+        div
+          button(type="submit") Login
+        // Display error message if it exists
+        if error
+          p.error= error
+        p Don't have an account? #[a(href="/register") Register here].
+

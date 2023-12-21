@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Followed Artists
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    .container
+    include header
+    h1 Followed Artists
+    each artist in followedArtists
+      div
+        h2= artist.username
+        a(href=`/artists/${artist._id}`, class="btn") View Artist
+        form(action="/user/unfollow/${artist._id}", method="post")
+          input(type="hidden", name="artistId", value=artist._id)
+          button(type="submit") Unfollow
+

@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title Add Workshop
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    .container
+    include header
+    h1 Add Workshop
+    form(action="/workshop/add", method="post")
+      label(for="title") Title:
+      input(type="text", name="title", required)
+      br
+      label(for="date") Date:
+      input(type="date", name="date", required)
+      br
+      label(for="location") Location:
+      input(type="text", name="location", required)
+      br
+      // Add other workshop details input fields as needed
+      br
+      button(type="submit") Add Workshop

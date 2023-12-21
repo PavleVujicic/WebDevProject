@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    title Notifications
+    link(rel="stylesheet", type="text/css", href="/styles.css")
+  body
+    include header
+    h1 Notifications
+    each notification in notifications
+      div
+        p= notification.content
+        p= notification.createdAt
+    form(action="/user/clear-notifications", method="post")
+      button(type="submit") Clear Notifications
